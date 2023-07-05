@@ -278,6 +278,8 @@ export default class extends Component {
       trackStyle = {
         height: 3,
         borderRadius: 3,
+        borderTopLeftRadius: 3,
+        borderBottomLeftRadius: 3,
       },
     } = this.props;
 
@@ -336,7 +338,13 @@ export default class extends Component {
             maxDurationMs={2000}
             hitSlop={{ top: 20, bottom: 20, left: 0, right: 0 }}
           >
-            <View style={[styles.backgroundTrack, trackBackgroundStyle]} />
+            <View
+              style={[
+                styles.backgroundTrack,
+                trackBackgroundStyle,
+                trackStyle && trackStyle,
+              ]}
+            />
           </TapGestureHandler>
           <View
             key="bufferedTrack"
