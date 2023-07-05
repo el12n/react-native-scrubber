@@ -184,16 +184,16 @@ export default class extends Component {
   };
 
   onSlidingStart = () => {
-    if (typeof this.props.onSlidingStart === 'function') {
+    if (typeof this.props.onSlidingStart === "function") {
       this.props.onSlidingStart();
     }
-  }
+  };
 
   onSlide = (scrubbingValue) => {
-    if (typeof this.props.onSlide === 'function') {
+    if (typeof this.props.onSlide === "function") {
       this.props.onSlide(scrubbingValue);
     }
-  }
+  };
 
   onLayoutContainer = async (e) => {
     await this.setState({
@@ -239,8 +239,9 @@ export default class extends Component {
         Math.max(value, 0),
         this.state.dimensionWidth
       );
-    
-      const startingNumberValue = (boundedValue / this.state.dimensionWidth) * this.props.totalDuration;
+
+      const startingNumberValue =
+        (boundedValue / this.state.dimensionWidth) * this.props.totalDuration;
 
       this.setState({
         startingNumberValue,
@@ -248,7 +249,7 @@ export default class extends Component {
           (1 - boundedValue / this.state.dimensionWidth) *
           this.props.totalDuration,
       });
-    
+
       this.onSlide(startingNumberValue);
       return;
     });
@@ -273,6 +274,11 @@ export default class extends Component {
       bufferedTrackColor = DefaultColors.bufferedTrackColor,
       displayedValueStyle = { color: DefaultColors.valueColor },
       displayValues = true,
+      sliderVisible = true,
+      trackStyle = {
+        height: 3,
+        borderRadius: 3,
+      },
     } = this.props;
 
     const { scrubbing, dimensionWidth } = this.state;
@@ -338,6 +344,7 @@ export default class extends Component {
               styles.bufferedProgressTrack,
               { ...bufferedTrackBackgroundStyle },
               { width: `${bufferedProgressWidth}%` },
+              { ...(trackStyle ? trackStyle : {}) },
             ]}
           />
           <Animated.View
@@ -346,6 +353,7 @@ export default class extends Component {
               styles.progressTrack,
               { ...progressTrackStyle },
               !scrubbing ? { width: `${progressWidth}%` } : { width: boundX },
+              { ...(trackStyle ? trackStyle : {}) },
             ]}
           />
           <PanGestureHandler
@@ -367,6 +375,7 @@ export default class extends Component {
                 key="progressTrack"
                 style={[
                   styles.trackSlider,
+                  !sliderVisible && { display: "none" },
                   { ...scrubberColor },
                   { transform: [scaleStyle] },
                 ]}

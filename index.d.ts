@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { TextStyle } from "react-native";
+import { TextStyle, ViewStyle } from "react-native";
 
 interface ScrubberProps {
   value?: number;
@@ -15,6 +15,8 @@ interface ScrubberProps {
   scrubbedColor?: string;
   displayedValueStyle?: TextStyle;
   displayValues?: boolean;
+  sliderVisible?: boolean;
+  trackStyle?: ViewStyle;
 }
 
 declare class Scrubber extends Component<ScrubberProps, any> {}
